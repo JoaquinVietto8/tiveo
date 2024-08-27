@@ -14,6 +14,7 @@ import Login from "./auth/Login";
 import auth from "@react-native-firebase/auth";
 import { useEffect, useState } from "react";
 import Map from "./Map";
+import Request from "./worker-request/Request";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -81,6 +82,7 @@ const Main = () => {
             <>
               <Stack.Screen name="MainNavigator" component={MainNavigator} />
               <Stack.Screen name="ActivityDetail" component={ActivityDetail} />
+              <Stack.Screen name="Request" component={Request} />
               <Stack.Screen name="Map" component={Map} />
             </>
           ) : (

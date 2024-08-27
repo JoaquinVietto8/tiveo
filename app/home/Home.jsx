@@ -105,7 +105,7 @@ const Home = ({ navigation }) => {
               <Pressable
                 style={styles.featured_categoryButton}
                 android_ripple={{ color: "#E2E2E2", borderless: true }}
-                onPress={() => navigation.navigate("Map")}
+                onPress={() => navigation.navigate("Request")}
               >
                 <Electricity style={styles.featured_categoryIcon} />
                 <Text style={styles.featured_categoryName}>Electricidad</Text>
