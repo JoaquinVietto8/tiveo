@@ -63,7 +63,7 @@ export default [
     worker: {
       workerId: 3,
       firstName:
-        "Luciano fs fg fg fg gf fg gf gf fg fg sdffsdfsdfsd ds  fsd fsd sdfsdf d",
+        "Luciano fs fg fg fg gf fg gf gf fg fg sdffsdfsdfsd ds  fsd fsd sdfhcgcvsdf d",
       lastName: "Dovidio",
       profilePicture: "../../assets/images/data/2",
     },
