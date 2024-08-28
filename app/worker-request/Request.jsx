@@ -9,19 +9,19 @@ import {
 import React, { useState, useRef } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Feather from "@expo/vector-icons/Feather";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import RightNow from "../../assets/svgs/work-request/right-now";
+import Schedule from "../../assets/svgs/work-request/schedule";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import { mapStyle } from "../mapStyle";
-import { mapConfig } from "../mapConfig";
+import { mapStyle } from "../../components/map/mapStyle";
+import { mapConfig } from "../../components/map/mapConfig";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Request = ({ navigation }) => {
-  const insets = useSafeAreaInsets();
-
   const sheetRef = useRef(null);
-  const snapPoints = [120, 320];
+  const snapPoints = [120, 380];
+
+  const [selectedButton, setSelectedButton] = useState("now");
 
   return (
     <View style={styles.mainContainer}>
@@ -53,28 +53,46 @@ const Request = ({ navigation }) => {
           </Pressable>
         </View>
 
-        <BottomSheet ref={sheetRef} snapPoints={snapPoints} index={1}>
+        <BottomSheet
+          ref={sheetRef}
+          snapPoints={snapPoints}
+          index={1}
+          style={styles.bottomSheet}
+          handleIndicatorStyle={{ backgroundColor: "#D8D8D8" }}
+        >
           <BottomSheetView style={styles.contentContainer}>
             <View style={styles.detailsContainer}>
-              <Text style={{ fontSize: 16 }}>Mi ubicacion:</Text>
-              <View style={styles.locationContainer}>
-                <Text
-                  style={{ flexShrink: 1, fontSize: 17, fontWeight: "bold" }}
-                >
-                  Marcelo T de Alvear 360
+              <View style={styles.header_detailsContainer}>
+                <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                  Solicitar trabajador
                 </Text>
-                <MaterialIcons
-                  name={"keyboard-arrow-down"}
-                  size={34}
-                  color="black"
-                />
               </View>
               <View style={styles.dateContainer}>
-                <Pressable style={styles.date_selectButton}>
+                <Pressable
+                  style={[
+                    styles.date_selectButton,
+                    selectedButton === "now"
+                      ? styles.selectedButton
+                      : styles.unselectedButton,
+                  ]}
+                  onPress={() => setSelectedButton("now")}
+                >
                   <RightNow />
                   <Text>Ahora mismo</Text>
                 </Pressable>
-                <Pressable style={styles.date_selectButton}></Pressable>
+
+                <Pressable
+                  style={[
+                    styles.date_selectButton,
+                    selectedButton === "schedule"
+                      ? styles.selectedButton
+                      : styles.unselectedButton,
+                  ]}
+                  onPress={() => setSelectedButton("schedule")}
+                >
+                  <Schedule />
+                  <Text>Programado</Text>
+                </Pressable>
               </View>
             </View>
           </BottomSheetView>
@@ -100,55 +118,65 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: 50,
     height: 50,
-    borderRadius: 50,
-  },
-  arrowContainer: {
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "#FFCB13",
-    width: "100%",
-    height: "100%",
     borderRadius: 50,
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 0 },
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
     shadowOpacity: 0.5,
     shadowRadius: 4,
     elevation: 2,
   },
+  arrowContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+    borderRadius: 50,
+  },
   gestureHandler: {
     flex: 1,
   },
+  bottomSheet: {},
   contentContainer: {
     flex: 1,
-    alignItems: "center",
-    paddingHorizontal: 25,
     paddingTop: 20,
   },
   detailsContainer: {
-    paddingHorizontal: 20,
-  },
-  locationContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    flex: 1,
     justifyContent: "center",
+    alignItems: "center",
+  },
+  header_detailsContainer: {
+    borderBottomWidth: 1,
+    width: "100%",
+    borderColor: "#D8D8D8",
+    alignItems: "center",
+    paddingBottom: 10,
   },
   dateContainer: {
+    paddingHorizontal: 20,
     marginTop: 20,
     flexDirection: "row",
     alignItems: "center",
-    flex: 1,
-    justifyContent: "space-around",
+    width: "100%",
+    justifyContent: "space-between",
   },
   date_selectButton: {
     flexDirection: "row",
     width: "48%",
     height: 50,
     borderRadius: 7,
-    backgroundColor: "#FFCB13",
     justifyContent: "space-evenly",
     paddingHorizontal: 10,
     alignItems: "center",
+  },
+  selectedButton: {
+    backgroundColor: "#FFCB13", // Color amarillo
+  },
+  unselectedButton: {
+    backgroundColor: "#D3D3D3", // Color gris
   },
 });
 
