@@ -39,7 +39,7 @@ const countries = [
   { name: "Venezuela", code: "+58", flag: "🇻🇪" },
 ];
 
-const Login = ({ navigation }) => {
+const Login = () => {
   const insets = useSafeAreaInsets();
 
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
