@@ -1,20 +1,51 @@
-import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+  Dimensions,
+  StatusBar,
+} from "react-native";
 import React from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import RightNow from "../../assets/svgs/work-request/right-now";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import { mapStyle } from "../mapStyle";
+import { mapConfig } from "../mapConfig";
 
 const Request = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   return (
-    <View
-      style={{
-        ...styles.mainContainer,
-        paddingTop: insets.top,
-        paddingBottom: insets.bottom,
-      }}
-    >
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <View style={styles.mainContainer}>
+      <MapView
+        customMapStyle={mapStyle}
+        provider={PROVIDER_GOOGLE}
+        style={styles.mapStyle}
+        initialRegion={{
+          latitude: -34.603684,
+          longitude: -58.381559,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        }}
+        mapType="standard"
+        {...mapConfig}
+      ></MapView>
+      <View
+        style={{
+          ...styles.container,
+          paddingBottom: insets.bottom,
+          paddingTop: insets.top,
+        }}
+      >
+        <StatusBar
+          translucent
+          backgroundColor="transparent"
+          barStyle="dark-content"
+        />
+
         <View style={styles.headerContainer}>
           <Pressable
             onPress={() => navigation.goBack()}
@@ -22,8 +53,8 @@ const Request = ({ navigation }) => {
           >
             <Feather name="arrow-left" size={24} color="black" />
           </Pressable>
-          <Text style={{ fontSize: 20 }}>Solicitar trabajador</Text>
         </View>
+
         <View style={styles.detailsContainer}>
           <Text style={{ fontSize: 16 }}>Mi ubicacion:</Text>
           <View style={styles.locationContainer}>
@@ -37,11 +68,14 @@ const Request = ({ navigation }) => {
             />
           </View>
           <View style={styles.dateContainer}>
-            <Pressable style={styles.date_selectButton}></Pressable>
+            <Pressable style={styles.date_selectButton}>
+              <RightNow />
+              <Text>Ahora mismo</Text>
+            </Pressable>
             <Pressable style={styles.date_selectButton}></Pressable>
           </View>
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 };
@@ -49,7 +83,14 @@ const Request = ({ navigation }) => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: "#F5F5F5",
+  },
+  mapStyle: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+  },
+  container: {
+    flex: 1,
+    position: "absolute",
   },
   headerContainer: {
     flexDirection: "row",
@@ -63,6 +104,8 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#fff",
+    borderRadius: 50,
   },
   detailsContainer: {
     paddingHorizontal: 20,
@@ -81,10 +124,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   date_selectButton: {
+    flexDirection: "row",
     width: "48%",
     height: 50,
     borderRadius: 7,
     backgroundColor: "#FFCB13",
+    justifyContent: "space-evenly",
+    paddingHorizontal: 10,
+    alignItems: "center",
   },
 });
 
