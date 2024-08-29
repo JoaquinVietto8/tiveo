@@ -8,3 +8,9 @@ Mensajes
 Detalles de actividad:
 metodos de pago en detalles de actividad
 descarga en pdf
+
+cambiar el ahora mismo
+ver el tema de que se agranda el TextInput (ver el tema enters)
+tunear el metodo de pago
+cambiar iconos de servicios
+al tocar simplificado que se expanda

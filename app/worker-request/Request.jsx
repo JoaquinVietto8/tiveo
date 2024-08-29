@@ -16,6 +16,7 @@ import { mapConfig } from "../../components/map/mapConfig";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import Jardineria from "../../assets/svgs/home/gardening";
 
 const formatPrice = (price) => {
   if (price === null) {
@@ -43,14 +44,14 @@ const Request = ({ navigation }) => {
             </Text>
             <View style={styles.detailsContainer}>
               <View style={styles.serviceContainer}>
-                <RightNow />
+                <Jardineria />
                 <Text
                   style={{
                     marginLeft: 7,
                     fontSize: 16,
                   }}
                 >
-                  Electricidad
+                  Jardineria
                 </Text>
               </View>
               <View style={styles.priceContainer}>
