@@ -26,7 +26,7 @@ const formatPrice = (price) => {
 
 const Request = ({ navigation }) => {
   const sheetRef = useRef(null);
-  const snapPoints = [150, 500];
+  const snapPoints = [225, 500];
 
   const [selectedButton, setSelectedButton] = useState("now");
   const [nowButtonColor, setNowButtonColor] = useState("#FFCB13");
@@ -149,30 +149,30 @@ const Request = ({ navigation }) => {
                   {description.length}/{maxLength}
                 </Text>
               </View>
-              <View style={styles.confirmContainer}>
-                <View style={styles.paymentContainer}>
-                  <View>
-                    <Text>Efectivo</Text>
-                  </View>
-                  <Icon name="keyboard-arrow-right" size={29} color="#000" />
-                </View>
-                <View style={styles.search_workerContainer}>
-                  <Pressable style={styles.search_workerButton}>
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        color: "#fff",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Buscar trabajador
-                    </Text>
-                  </Pressable>
-                </View>
-              </View>
             </View>
           </BottomSheetView>
         </BottomSheet>
+        <View style={styles.confirmContainer}>
+          <View style={styles.paymentContainer}>
+            <View>
+              <Text>Efectivo</Text>
+            </View>
+            <Icon name="keyboard-arrow-right" size={29} color="#000" />
+          </View>
+          <View style={styles.search_workerContainer}>
+            <Pressable style={styles.search_workerButton}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  color: "#fff",
+                  fontWeight: "bold",
+                }}
+              >
+                Buscar trabajador
+              </Text>
+            </Pressable>
+          </View>
+        </View>
       </GestureHandlerRootView>
     </View>
   );
@@ -237,9 +237,9 @@ const styles = StyleSheet.create({
     height: 70,
     alignItems: "center",
     paddingVertical: 10,
-    // borderWidth: 1,
-    //borderColor: "#000",
-    // borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "#000",
+    borderRadius: 5,
     paddingHorizontal: 10,
   },
   serviceContainer: {
@@ -290,21 +290,22 @@ const styles = StyleSheet.create({
     color: "#8A8A8A",
   },
   confirmContainer: {
-    //  backgroundColor: "red",
     borderTopWidth: 0.6,
     borderTopColor: "#000",
     width: "100%",
-    height: "100%",
-    paddingVertical: 10,
+    height: 130,
+    paddingVertical: 15,
     paddingHorizontal: 20,
-    // position: "absolute",
+    backgroundColor: "#fff",
+    position: "absolute",
+    bottom: 0,
   },
   paymentContainer: {
     width: "100%",
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
-    paddingBottom: 10,
+    paddingBottom: 15,
   },
   search_workerContainer: {
     width: "100%",
