@@ -136,7 +136,7 @@ const Login = () => {
                 value={phoneNumber}
                 placeholder="Ej: 123456789"
                 placeholderTextColor="#8A8A8A"
-                selectionColor={"#FFC107"}
+                selectionColor={"#3396ff"}
                 cursorColor="black"
                 onChangeText={(text) => {
                   const numericText = text.replace(/[^0-9]/g, "");

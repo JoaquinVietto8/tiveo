@@ -15,10 +15,18 @@ import { mapStyle } from "../../components/map/mapStyle";
 import { mapConfig } from "../../components/map/mapConfig";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Icon from "react-native-vector-icons/MaterialIcons";
+
+const formatPrice = (price) => {
+  if (price === null) {
+    return "Pago no registrado";
+  }
+  return `$ ${price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
+};
 
 const Request = ({ navigation }) => {
   const sheetRef = useRef(null);
-  const snapPoints = [120, 380];
+  const snapPoints = [150, 500];
 
   const [selectedButton, setSelectedButton] = useState("now");
   const [nowButtonColor, setNowButtonColor] = useState("#FFCB13");
@@ -33,6 +41,9 @@ const Request = ({ navigation }) => {
       setScheduleButtonColor("#FFCB13");
     }
   }, [selectedButton]);
+
+  const [description, setDescription] = useState("");
+  const maxLength = 200;
 
   return (
     <View style={styles.mainContainer}>
@@ -72,11 +83,32 @@ const Request = ({ navigation }) => {
           handleIndicatorStyle={{ backgroundColor: "#D8D8D8" }}
         >
           <BottomSheetView style={styles.contentContainer}>
-            <View style={styles.detailsContainer}>
+            <View>
               <View style={styles.header_detailsContainer}>
                 <Text style={{ fontSize: 18, fontWeight: "bold" }}>
                   Solicitar trabajador
                 </Text>
+                <View style={styles.detailsContainer}>
+                  <View style={styles.serviceContainer}>
+                    <RightNow />
+                    <Text
+                      style={{
+                        marginLeft: 7,
+                        fontSize: 16,
+                      }}
+                    >
+                      Electricidad
+                    </Text>
+                  </View>
+                  <View style={styles.priceContainer}>
+                    <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                      {formatPrice("1000")}
+                    </Text>
+                    <Text style={{ fontSize: 14, color: "#8A8A8A" }}>
+                      Precio de reserva
+                    </Text>
+                  </View>
+                </View>
               </View>
               <View style={styles.dateContainer}>
                 <Pressable
@@ -102,15 +134,41 @@ const Request = ({ navigation }) => {
                 </Pressable>
               </View>
               <View style={styles.descriptionContainer}>
-                <Text>Descripcion</Text>
+                <Text style={{ fontWeight: "bold" }}>Describe tu problema</Text>
                 <TextInput
                   style={styles.descriptionInput}
-                  maxLength={100}
-                  placeholder="Describe brevemente el problema a resolver. (Opcional)"
+                  maxLength={200}
                   placeholderTextColor="#8A8A8A"
-                  selectionColor={"#FFC107"}
+                  selectionColor={"#228dff"}
                   cursorColor="black"
-                ></TextInput>
+                  multiline={true}
+                  value={description}
+                  onChangeText={(text) => setDescription(text)}
+                />
+                <Text style={styles.charCount}>
+                  {description.length}/{maxLength}
+                </Text>
+              </View>
+              <View style={styles.confirmContainer}>
+                <View style={styles.paymentContainer}>
+                  <View>
+                    <Text>Efectivo</Text>
+                  </View>
+                  <Icon name="keyboard-arrow-right" size={29} color="#000" />
+                </View>
+                <View style={styles.search_workerContainer}>
+                  <Pressable style={styles.search_workerButton}>
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        color: "#fff",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Buscar trabajador
+                    </Text>
+                  </Pressable>
+                </View>
               </View>
             </View>
           </BottomSheetView>
@@ -139,10 +197,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFCB13",
     borderRadius: 50,
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.5,
     shadowRadius: 4,
     elevation: 2,
@@ -160,9 +215,9 @@ const styles = StyleSheet.create({
   bottomSheet: {},
   contentContainer: {
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 10,
   },
-  detailsContainer: {
+  optionsContainer: {
     justifyContent: "center",
     alignItems: "center",
   },
@@ -171,7 +226,30 @@ const styles = StyleSheet.create({
     width: "100%",
     borderColor: "#D8D8D8",
     alignItems: "center",
-    paddingBottom: 10,
+    paddingBottom: 15,
+    paddingHorizontal: 20,
+  },
+  detailsContainer: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+    marginTop: 16,
+    height: 70,
+    alignItems: "center",
+    paddingVertical: 10,
+    // borderWidth: 1,
+    //borderColor: "#000",
+    // borderRadius: 5,
+    paddingHorizontal: 10,
+  },
+  serviceContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  priceContainer: {
+    height: "100%",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
   },
   dateContainer: {
     paddingHorizontal: 20,
@@ -184,10 +262,59 @@ const styles = StyleSheet.create({
   date_selectButton: {
     flexDirection: "row",
     width: "48%",
-    height: 50,
+    height: 55,
     borderRadius: 7,
     justifyContent: "space-evenly",
     paddingHorizontal: 10,
+    alignItems: "center",
+  },
+  descriptionContainer: {
+    marginTop: 15,
+    width: "100%",
+    paddingHorizontal: 20,
+    marginBottom: 15,
+  },
+  descriptionInput: {
+    width: "100%",
+    borderWidth: 2,
+    borderColor: "#000",
+    borderRadius: 5,
+    height: "auto",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    minHeight: 60,
+  },
+  charCount: {
+    marginTop: 5,
+    textAlign: "right",
+    color: "#8A8A8A",
+  },
+  confirmContainer: {
+    //  backgroundColor: "red",
+    borderTopWidth: 0.6,
+    borderTopColor: "#000",
+    width: "100%",
+    height: "100%",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    // position: "absolute",
+  },
+  paymentContainer: {
+    width: "100%",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    paddingBottom: 10,
+  },
+  search_workerContainer: {
+    width: "100%",
+  },
+  search_workerButton: {
+    width: "100%",
+    backgroundColor: "#000",
+    height: 50,
+    borderRadius: 6,
+    justifyContent: "center",
     alignItems: "center",
   },
 });
