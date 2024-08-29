@@ -3,11 +3,10 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  Dimensions,
   StatusBar,
+  TextInput,
 } from "react-native";
-import React, { useState, useRef } from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import React, { useState, useRef, useEffect } from "react";
 import Feather from "@expo/vector-icons/Feather";
 import RightNow from "../../assets/svgs/work-request/right-now";
 import Schedule from "../../assets/svgs/work-request/schedule";
@@ -22,6 +21,18 @@ const Request = ({ navigation }) => {
   const snapPoints = [120, 380];
 
   const [selectedButton, setSelectedButton] = useState("now");
+  const [nowButtonColor, setNowButtonColor] = useState("#FFCB13");
+  const [scheduleButtonColor, setScheduleButtonColor] = useState("#EEEEEE");
+
+  useEffect(() => {
+    if (selectedButton === "now") {
+      setNowButtonColor("#FFCB13");
+      setScheduleButtonColor("#EEEEEE");
+    } else {
+      setNowButtonColor("#EEEEEE");
+      setScheduleButtonColor("#FFCB13");
+    }
+  }, [selectedButton]);
 
   return (
     <View style={styles.mainContainer}>
@@ -71,9 +82,7 @@ const Request = ({ navigation }) => {
                 <Pressable
                   style={[
                     styles.date_selectButton,
-                    selectedButton === "now"
-                      ? styles.selectedButton
-                      : styles.unselectedButton,
+                    { backgroundColor: nowButtonColor },
                   ]}
                   onPress={() => setSelectedButton("now")}
                 >
@@ -84,15 +93,24 @@ const Request = ({ navigation }) => {
                 <Pressable
                   style={[
                     styles.date_selectButton,
-                    selectedButton === "schedule"
-                      ? styles.selectedButton
-                      : styles.unselectedButton,
+                    { backgroundColor: scheduleButtonColor },
                   ]}
                   onPress={() => setSelectedButton("schedule")}
                 >
                   <Schedule />
                   <Text>Programado</Text>
                 </Pressable>
+              </View>
+              <View style={styles.descriptionContainer}>
+                <Text>Descripcion</Text>
+                <TextInput
+                  style={styles.descriptionInput}
+                  maxLength={100}
+                  placeholder="Describe brevemente el problema a resolver. (Opcional)"
+                  placeholderTextColor="#8A8A8A"
+                  selectionColor={"#FFC107"}
+                  cursorColor="black"
+                ></TextInput>
               </View>
             </View>
           </BottomSheetView>
@@ -171,12 +189,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     paddingHorizontal: 10,
     alignItems: "center",
-  },
-  selectedButton: {
-    backgroundColor: "#FFCB13", // Color amarillo
-  },
-  unselectedButton: {
-    backgroundColor: "#D3D3D3", // Color gris
   },
 });
 
