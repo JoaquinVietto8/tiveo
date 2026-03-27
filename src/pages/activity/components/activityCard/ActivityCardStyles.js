@@ -1,0 +1,137 @@
+import { StyleSheet } from "react-native";
+import { colors } from "../../../../styles/globalStyles";
+
+export const styles = StyleSheet.create({
+  activity__activityCard__card: {
+    backgroundColor: colors.white,
+    borderRadius: 8,
+    marginBottom: 15,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  activity__activityCard__cardHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 6,
+    gap: 6,
+    justifyContent: "space-between",
+  },
+  activity__activityCard__cardIconsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  activity__activityCard__cardTitle: {
+    fontSize: 16,
+    marginRight: 4,
+    fontFamily: "Inter-Bold",
+  },
+  activity__activityCard__cardAddress: {
+    fontSize: 15,
+    color: "#444",
+    marginBottom: 6,
+    fontFamily: "Inter-Regular",
+  },
+  activity__activityCard__cardFooter: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  activity__activityCard__cardDate: {
+    fontSize: 14,
+    color: colors.gray,
+    fontFamily: "Inter-Light",
+  },
+  activity__activityCard__cardStatus: {
+    fontSize: 14,
+    fontFamily: "Inter-SemiBold",
+  },
+  activity__activityCard__optionContainer: {
+    flexDirection: "row",
+    borderTopWidth: 1,
+    borderColor: colors.lightGray,
+  },
+  activity__activityCard__cancelButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 12,
+    borderBottomLeftRadius: 8,
+  },
+  activity__activityCard__messagesButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 12,
+    backgroundColor: colors.black,
+    borderBottomRightRadius: 8,
+  },
+  activity__activityCard__paymentButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 12,
+    backgroundColor: colors.primary,
+    borderBottomRightRadius: 8,
+    borderBottomLeftRadius: 8,
+  },
+  activity__activityCard__modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  activity__activityCard__modalContent: {
+    backgroundColor: colors.white,
+    borderRadius: 8,
+    padding: 20,
+    width: "90%",
+    alignItems: "center",
+  },
+  activity__activityCard__modalTitle: {
+    fontFamily: "Inter-Bold",
+    fontSize: 18,
+    marginBottom: 8,
+    color: colors.black,
+    textAlign: "center",
+  },
+  activity__activityCard__modalText: {
+    fontFamily: "Inter-Regular",
+    fontSize: 14,
+    marginBottom: 20,
+    textAlign: "center",
+    color: colors.gray,
+  },
+  activity__activityCard__modalButtons: {
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center ",
+  },
+  activity__activityCard__modalButton: {
+    flex: 1,
+    padding: 8,
+    height: 60,
+    justifyContent: "center",
+    borderRadius: 6,
+    alignItems: "center",
+    marginHorizontal: 5,
+  },
+  activity__activityCard__modalKeepButton: {
+    backgroundColor: colors.primary,
+  },
+  activity__activityCard__modalCancelButton: {},
+  activity__activityCard__modalButtonText: {
+    fontFamily: "Inter-Medium",
+    fontSize: 15,
+    color: colors.white,
+    textAlign: "center",
+  },
+  activity__activityCard__modalButtonCancelText: {
+    fontFamily: "Inter-Medium",
+    fontSize: 15,
+    color: "red",
+    textAlign: "center",
+  },
+});
